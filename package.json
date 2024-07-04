@@ -1,0 +1,31 @@
+{
+  "name": "@un-tlsn/eslint",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "start": "tsup",
+    "dev": "tsup --watch",
+    "pub": "tsup && npm publish --access public"
+  },
+  "keywords": [
+    "eslint",
+    "solidjs",
+    "typescript"
+  ],
+  "author": "untlsn",
+  "license": "MIT",
+  "dependencies": {
+    "@eslint/js": "^9.6.0",
+    "@stylistic/eslint-plugin": "^2.3.0",
+    "@typescript-eslint/parser": "^7.15.0",
+    "eslint-plugin-react": "^7.34.3",
+    "eslint-plugin-solid": "^0.14.1",
+    "typescript-eslint": "^7.15.0"
+  },
+  "devDependencies": {
+    "tsup": "^8.1.0"
+  }
+}
