@@ -1,31 +1,43 @@
+// @ts-ignore
 import eslint from '@eslint/js';
+// @ts-ignore
+import react from 'eslint-plugin-react';
 import stylistic from '@stylistic/eslint-plugin'
 import * as tsParser from '@typescript-eslint/parser';
 import solid from 'eslint-plugin-solid';
-import tsEslint, { type ConfigWithExtends } from 'typescript-eslint';
-// @ts-ignore
-import react from 'eslint-plugin-react';
+import tsEslint from 'typescript-eslint';
+import type { ConfigWithExtends } from 'typescript-eslint';
 
-export default function eslintConfig(...config: ConfigWithExtends[]) {
+/**
+ * Configs for SolidJS
+ */
+export const solidConfig: ConfigWithExtends[] = [
+	{
+		...solid.configs['flat/recommended'],
+		languageOptions: {
+			parser: tsParser,
+			parserOptions: {
+				project: 'tsconfig.json',
+			},
+		},
+	},
+	{
+		plugins: { react },
+		rules: {
+			'react/button-has-type': [1, { reset: true }],
+		},
+	}
+]
+
+/**
+ * My default eslint config for working with projects
+ * For SolidJS support add solid {@link solidConfig}
+ */
+export function defineConfig(...config: ConfigWithExtends[]): ConfigWithExtends[] {
 	return tsEslint.config(
 		eslint.configs.recommended,
 		...tsEslint.configs.recommended,
 		{
-			files: ['**/*.{ts,tsx}'],
-			...solid.configs['flat/typescript'],
-			languageOptions: {
-				parser: tsParser,
-				parserOptions: {
-					project: 'tsconfig.json',
-				},
-			},
-			rules: {
-				'solid/jsx-no-undef': 0,
-				'solid/self-closing-comp': 0,
-			},
-		},
-		{
-			plugins: { react },
 			rules: {
 				'prefer-const': 1,
 				'space-infix-ops': 1,
@@ -36,8 +48,9 @@ export default function eslintConfig(...config: ConfigWithExtends[]) {
 				'@typescript-eslint/no-explicit-any': 0,
 				'@typescript-eslint/no-non-null-assertion': 0,
 				'@typescript-eslint/ban-ts-comment': 0,
-				'react/button-has-type': [1, { reset: true }],
-			},
+				'@typescript-eslint/consistent-type-imports':        1,
+				'@typescript-eslint/explicit-module-boundary-types': 1,
+			}
 		},
 		{
 			plugins: { '@stylistic': stylistic },
